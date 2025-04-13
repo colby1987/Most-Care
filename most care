@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixed Page</title>
+
+  <!-- Adobe Script (mock) -->
+  <script src="https://assets.adobedtm.com/your/adobe/script.js"></script>
+
+  <!-- Font loading via same origin to avoid CORS (example fallback) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Unique IDs -->
+  <button id="send-otp-code-1">Send Code 1</button>
+  <button id="send-otp-code-2" data-bactmln="validate-signin-firstfactor">Send Code 2</button>
+
+  <input type="radio" id="textOptIn-1" value="TEXT" name="textVoiceRadio" checked>
+  <input type="radio" id="textOptIn-2" value="TEXT" name="textVoiceRadio">
+
+  <fieldset id="textVoiceRadio-1">Voice Option Set 1</fieldset>
+  <fieldset id="textVoiceRadio-2">Voice Option Set 2</fieldset>
+
+  <input type="radio" id="voiceOptIn-1" value="VOICE" name="textVoiceRadio">
+  <input type="radio" id="voiceOptIn-2" value="VOICE" name="textVoiceRadio">
+
+  <!-- Audio playback fix -->
+  <button id="playButton">Play Audio</button>
+  <audio id="audio" src="sample.mp3"></audio>
+
+  <script>
+    // Fix for auto-play not allowed
+    document.querySelector('#playButton').addEventListener('click', function () {
+      const audio = document.querySelector('#audio');
+      audio.play().catch(err => {
+        console.warn("Playback failed due to no interaction", err);
+      });
+    });
+
+    // Safe use of Adobe object
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof adobe !== 'undefined') {
+        console.log("Adobe is ready");
+        // adobe.trackSomething();
+      } else {
+        console.warn("Adobe is not defined yet.");
+      }
+    });
+  </script>
+
+</body>
+</html>
